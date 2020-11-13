@@ -1,0 +1,384 @@
+type Query {
+  Product_connection(first: Int, last: Int, after: String, before: String, order_by: Product_order_by, where: Product_bool_exp): ProductConnection!
+  ProductsProductCategory_connection(first: Int, last: Int, after: String, before: String, order_by: ProductsProductCategory_order_by, where: ProductsProductCategory_bool_exp): ProductsProductCategoryConnection!
+  ProductCategory_connection(first: Int, last: Int, after: String, before: String, order_by: ProductCategory_order_by, where: ProductCategory_bool_exp): ProductCategoryConnection!
+}
+
+type ProductConnection {
+  edges: [ProductEdge]!
+  pageInfo: PageInfo!
+}
+
+type ProductEdge {
+  cursor: String!
+  node: Product!
+}
+
+type Product implements Node {
+  name: String!
+  basePrice: String!
+  updatedAt: String
+  deleted: String
+  id: String!
+  organizationId: String!
+  plu: String!
+  ean: String!
+  createdAt: String
+  unit_id: String
+  image: String
+  excise: String!
+  tax_id: String
+  returnable_packaging: String
+  gtu: String
+  description: String
+  pkwiu: String
+  type_id: String
+  weight: String
+  categories_connection(first: Int, last: Int, after: String, before: String, order_by: ProductsProductCategory_order_by, where: ProductsProductCategory_bool_exp): ProductsProductCategoryConnection!
+}
+
+interface Node {
+  id: String!
+}
+
+type ProductsProductCategoryConnection {
+  edges: [ProductsProductCategoryEdge]!
+  pageInfo: PageInfo!
+}
+
+type ProductsProductCategoryEdge {
+  cursor: String!
+  node: ProductsProductCategory!
+}
+
+type ProductsProductCategory implements Node {
+  categoryId: String!
+  productId: String!
+  updated_at: String
+  id: String!
+  category: ProductCategory
+  product: Product
+}
+
+type ProductCategory implements Node {
+  id: String!
+  name: String!
+  updatedAt: String!
+  createdAt: String!
+  organizationId: String
+  deleted: String
+  default_tax_value_id: String
+  default_unit_id: String
+  excise: String
+  products_connection(first: Int, last: Int, after: String, before: String, order_by: ProductsProductCategory_order_by, where: ProductsProductCategory_bool_exp): ProductsProductCategoryConnection!
+}
+
+input ProductsProductCategory_order_by {
+  categoryId: order_by
+  productId: order_by
+  updated_at: order_by
+}
+
+enum order_by {
+  asc
+  desc
+}
+
+input ProductsProductCategory_bool_exp {
+  _and: [ProductsProductCategory_bool_exp]
+  _not: [ProductsProductCategory_bool_exp]
+  _or: [ProductsProductCategory_bool_exp]
+  categoryId: String_comparison_exp
+  productId: String_comparison_exp
+  updated_at: String_comparison_exp
+}
+
+input String_comparison_exp {
+  _eq: String
+  _like: String
+  _ilike: String
+  _qt: String
+  _qte: String
+  _lt: String
+  _lte: String
+  _in: [String!]
+  _is_nul: Boolean
+  _neq: String
+  _nilike: String
+  _nin: [String!]
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+input Product_order_by {
+  name: order_by
+  basePrice: order_by
+  updatedAt: order_by
+  deleted: order_by
+  id: order_by
+  organizationId: order_by
+  plu: order_by
+  ean: order_by
+  createdAt: order_by
+  unit_id: order_by
+  image: order_by
+  excise: order_by
+  tax_id: order_by
+  returnable_packaging: order_by
+  gtu: order_by
+  description: order_by
+  pkwiu: order_by
+  type_id: order_by
+  weight: order_by
+}
+
+input Product_bool_exp {
+  _and: [Product_bool_exp]
+  _not: [Product_bool_exp]
+  _or: [Product_bool_exp]
+  name: String_comparison_exp
+  basePrice: String_comparison_exp
+  updatedAt: String_comparison_exp
+  deleted: String_comparison_exp
+  id: String_comparison_exp
+  organizationId: String_comparison_exp
+  plu: String_comparison_exp
+  ean: String_comparison_exp
+  createdAt: String_comparison_exp
+  unit_id: String_comparison_exp
+  image: String_comparison_exp
+  excise: String_comparison_exp
+  tax_id: String_comparison_exp
+  returnable_packaging: String_comparison_exp
+  gtu: String_comparison_exp
+  description: String_comparison_exp
+  pkwiu: String_comparison_exp
+  type_id: String_comparison_exp
+  weight: String_comparison_exp
+}
+
+type ProductCategoryConnection {
+  edges: [ProductCategoryEdge]!
+  pageInfo: PageInfo!
+}
+
+type ProductCategoryEdge {
+  cursor: String!
+  node: ProductCategory!
+}
+
+input ProductCategory_order_by {
+  id: order_by
+  name: order_by
+  updatedAt: order_by
+  createdAt: order_by
+  organizationId: order_by
+  deleted: order_by
+  default_tax_value_id: order_by
+  default_unit_id: order_by
+  excise: order_by
+}
+
+input ProductCategory_bool_exp {
+  _and: [ProductCategory_bool_exp]
+  _not: [ProductCategory_bool_exp]
+  _or: [ProductCategory_bool_exp]
+  id: String_comparison_exp
+  name: String_comparison_exp
+  updatedAt: String_comparison_exp
+  createdAt: String_comparison_exp
+  organizationId: String_comparison_exp
+  deleted: String_comparison_exp
+  default_tax_value_id: String_comparison_exp
+  default_unit_id: String_comparison_exp
+  excise: String_comparison_exp
+}
+
+type Mutation {
+  insert_Product(objects: [ProductInput!]!, on_conflict: Product_on_conflict): Product_mutation_response!
+  insert_Product_one(object: ProductInput!, on_conflict: Product_on_conflict): Product!
+  update_Product(where: Product_bool_exp, _set: Product_set_input!): Product_mutation_response!
+  update_Product_by_pk(pk_columns: Product_pk_columns_input!, _set: Product_set_input!): Product!
+  delete_Product(where: Product_bool_exp): Product_mutation_response!
+  delete_Product_by_pk(pk_columns: Product_pk_columns_input!): Product!
+  insert_ProductsProductCategory(objects: [ProductsProductCategoryInput!]!, on_conflict: ProductsProductCategory_on_conflict): ProductsProductCategory_mutation_response!
+  insert_ProductsProductCategory_one(object: ProductsProductCategoryInput!, on_conflict: ProductsProductCategory_on_conflict): ProductsProductCategory!
+  update_ProductsProductCategory(where: ProductsProductCategory_bool_exp, _set: ProductsProductCategory_set_input!): ProductsProductCategory_mutation_response!
+  update_ProductsProductCategory_by_pk(pk_columns: ProductsProductCategory_pk_columns_input!, _set: ProductsProductCategory_set_input!): ProductsProductCategory!
+  delete_ProductsProductCategory(where: ProductsProductCategory_bool_exp): ProductsProductCategory_mutation_response!
+  delete_ProductsProductCategory_by_pk(pk_columns: ProductsProductCategory_pk_columns_input!): ProductsProductCategory!
+  insert_ProductCategory(objects: [ProductCategoryInput!]!, on_conflict: ProductCategory_on_conflict): ProductCategory_mutation_response!
+  insert_ProductCategory_one(object: ProductCategoryInput!, on_conflict: ProductCategory_on_conflict): ProductCategory!
+  update_ProductCategory(where: ProductCategory_bool_exp, _set: ProductCategory_set_input!): ProductCategory_mutation_response!
+  update_ProductCategory_by_pk(pk_columns: ProductCategory_pk_columns_input!, _set: ProductCategory_set_input!): ProductCategory!
+  delete_ProductCategory(where: ProductCategory_bool_exp): ProductCategory_mutation_response!
+  delete_ProductCategory_by_pk(pk_columns: ProductCategory_pk_columns_input!): ProductCategory!
+}
+
+type Product_mutation_response {
+  affected_rows: Int!
+  returning: [Product]!
+}
+
+input ProductInput {
+  name: String!
+  basePrice: String!
+  updatedAt: String
+  deleted: String
+  id: String
+  organizationId: String!
+  plu: String!
+  ean: String!
+  createdAt: String
+  unit_id: String
+  image: String
+  excise: String!
+  tax_id: String
+  returnable_packaging: String
+  gtu: String
+  description: String
+  pkwiu: String
+  type_id: String
+  weight: String
+}
+
+input Product_on_conflict {
+  update_columns: [Product_update_columns!]!
+  where: Product_bool_exp
+}
+
+enum Product_update_columns {
+  name
+  basePrice
+  updatedAt
+  deleted
+  id
+  organizationId
+  plu
+  ean
+  createdAt
+  unit_id
+  image
+  excise
+  tax_id
+  returnable_packaging
+  gtu
+  description
+  pkwiu
+  type_id
+  weight
+}
+
+input Product_set_input {
+  name: String!
+  basePrice: String!
+  updatedAt: String!
+  deleted: String!
+  id: String!
+  organizationId: String!
+  plu: String!
+  ean: String!
+  createdAt: String!
+  unit_id: String!
+  image: String!
+  excise: String!
+  tax_id: String!
+  returnable_packaging: String!
+  gtu: String!
+  description: String!
+  pkwiu: String!
+  type_id: String!
+  weight: String!
+}
+
+input Product_pk_columns_input {
+  id: String
+}
+
+type ProductsProductCategory_mutation_response {
+  affected_rows: Int!
+  returning: [ProductsProductCategory]!
+}
+
+input ProductsProductCategoryInput {
+  categoryId: String
+  productId: String
+  updated_at: String
+}
+
+input ProductsProductCategory_on_conflict {
+  update_columns: [ProductsProductCategory_update_columns!]!
+  where: ProductsProductCategory_bool_exp
+}
+
+enum ProductsProductCategory_update_columns {
+  categoryId
+  productId
+  updated_at
+}
+
+input ProductsProductCategory_set_input {
+  categoryId: String!
+  productId: String!
+  updated_at: String!
+}
+
+input ProductsProductCategory_pk_columns_input {
+  categoryId: String
+  productId: String
+}
+
+type ProductCategory_mutation_response {
+  affected_rows: Int!
+  returning: [ProductCategory]!
+}
+
+input ProductCategoryInput {
+  id: String
+  name: String!
+  updatedAt: String!
+  createdAt: String!
+  organizationId: String
+  deleted: String
+  default_tax_value_id: String
+  default_unit_id: String
+  excise: String
+}
+
+input ProductCategory_on_conflict {
+  update_columns: [ProductCategory_update_columns!]!
+  where: ProductCategory_bool_exp
+}
+
+enum ProductCategory_update_columns {
+  id
+  name
+  updatedAt
+  createdAt
+  organizationId
+  deleted
+  default_tax_value_id
+  default_unit_id
+  excise
+}
+
+input ProductCategory_set_input {
+  id: String!
+  name: String!
+  updatedAt: String!
+  createdAt: String!
+  organizationId: String!
+  deleted: String!
+  default_tax_value_id: String!
+  default_unit_id: String!
+  excise: String!
+}
+
+input ProductCategory_pk_columns_input {
+  id: String
+}
